@@ -24,7 +24,7 @@ class RAGBase:
         instructions=INSTRUCTIONS,
         prompt_template=PROMPT_TEMPLATE,
         course='llm-zoomcamp',
-        model='gpt-5.4-mini'
+        model=''
     ):
         self.index = index
         self.llm_client = llm_client
@@ -62,17 +62,12 @@ class RAGBase:
         )
 
     def llm(self, prompt):
-        input_messages = [
-            {'role': 'developer', 'content': self.instructions},
-            {'role': 'user', 'content': prompt}
-        ]
-
-        response = self.llm_client.responses.create(
-            model=self.model,
-            input=input_messages
+        contents = self.instructions + "\n\n" + prompt
+        response = self.llm_client.models.generate_content(
+            model=model,
+            contents=contents
         )
-
-        return response.output_text
+        return response.text
 
     def rag(self, query):
         search_results = self.search(query)

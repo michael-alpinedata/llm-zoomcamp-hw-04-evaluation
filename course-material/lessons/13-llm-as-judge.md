@@ -1,4 +1,4 @@
-# LLM as a Judge
+# 13 LLM as a Judge
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=BEXVULgalDM&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -37,7 +37,7 @@ If the judge marks an answer as bad, we still need to look at the
 example. The judge tells us where to investigate. It doesn't replace
 reading the failing cases.
 
-## Loading the RAG answers
+## 13.1 Loading the RAG answers
 
 Start from the CSV we created in the previous lesson:
 
@@ -60,7 +60,7 @@ questions. There we can still use an LLM judge. The prompt has to judge
 only the question and the generated answer. In this lesson, we use the
 stronger offline setup.
 
-## A->Q->A' evaluation
+## 13.2 A->Q->A' evaluation
 
 We'll compare the RAG answer with the original answer from the FAQ.
 This checks if the RAG pipeline is producing answers that match the
@@ -203,7 +203,7 @@ eval_result, usage = evaluate_aqa(
 eval_result
 ```
 
-## Running the judge
+## 13.3 Running the judge
 
 Run the evaluation on all answers:
 
@@ -276,7 +276,7 @@ show that search retrieved the wrong document. They can also show that
 the answer is too generic. Sometimes the RAG pipeline says that it
 doesn't know even though the FAQ had the answer.
 
-## Evaluating the judge
+## 13.4 Evaluating the judge
 
 The judge can be wrong. It may rate an answer as good even though search
 failed to retrieve the right document. In that case the judge is too
@@ -294,7 +294,7 @@ incorrect and use that feedback to adjust the judge instructions. This
 is a lot of trial and error, but it makes the evaluation framework more
 reliable.
 
-## Saving the results
+## 13.5 Saving the results
 
 Save the judged answers:
 

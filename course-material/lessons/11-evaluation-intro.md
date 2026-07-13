@@ -1,4 +1,4 @@
-# RAG and Agent Evaluation
+# 11 RAG and Agent Evaluation
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=VKHBP0QSCFo&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -32,7 +32,7 @@ agent from module 01, save the final answer, and also save the tool
 calls. Then we can look at whether the answer is good and whether the
 trajectory looks reasonable.
 
-## LLM as a judge
+## 11.1 LLM as a judge
 
 For RAG and agent evaluation, we compare the generated answer with the
 original answer. The generated answer won't use the same words as the

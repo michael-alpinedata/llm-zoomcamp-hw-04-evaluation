@@ -1,4 +1,4 @@
-# Search Parameter Tuning
+# 6 Search Parameter Tuning
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=rSBSS_kCYN0&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -17,7 +17,7 @@ This is the main benefit of offline evaluation. We change one parameter,
 run the same questions again, and see whether the metric moves. The
 dataset stays fixed, so the comparison is fair.
 
-## Trying different boosts
+## 6.1 Trying different boosts
 
 Start with a search function where the question boost is configurable:
 
@@ -171,7 +171,7 @@ correct document appears at all. MRR tells us whether it appears near
 the top. A document near the top is more likely to be used by the RAG
 prompt.
 
-## Tuning Workflow
+## 6.2 Tuning Workflow
 
 Search parameters can look arbitrary. This includes field boosts,
 number of results, filters, and other settings. Evaluation gives us a
@@ -189,7 +189,7 @@ expensive. In those cases, use Bayesian optimization with a library like
 hyperopt. It explores the parameter space more efficiently by focusing
 on combinations that are likely to improve the metric.
 
-## Top-K tradeoffs
+## 6.3 Top-K tradeoffs
 
 We return 5 results from search. Increasing top-K to 10 would improve
 hit rate because there are more chances to find the correct document.

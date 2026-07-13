@@ -1,4 +1,4 @@
-# Agent Evaluation
+# 14 Agent Evaluation
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=2SW86BehVdI&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -14,7 +14,7 @@ fixed RAG pipeline.
 We also save the trajectory. Here, the trajectory means only the tool
 calls the agent made before producing the final answer.
 
-## Loading the data
+## 14.1 Loading the data
 
 Use the same ground truth questions:
 
@@ -51,7 +51,7 @@ for doc in documents:
     doc_idx[doc["id"]] = doc
 ```
 
-## Running the agent
+## 14.2 Running the agent
 
 Reuse the ToyAIKit agent from module 01. It handles the agent loop and
 stores the full message history.
@@ -190,7 +190,7 @@ agent_result
 The `answer_agent` field is what we evaluate with the LLM judge. The
 `tool_calls` field lets the judge see how the agent got there.
 
-## Processing multiple questions
+## 14.3 Processing multiple questions
 
 Create a function that processes one ground truth record:
 
@@ -275,7 +275,7 @@ Our judge can look at both:
 This lets us evaluate the final answer and the agent behavior in one
 place.
 
-## Judging answers and trajectories
+## 14.4 Judging answers and trajectories
 
 A good trajectory is not just "many tool calls". A good trajectory uses
 the available tools in a way that helps answer the question.
@@ -402,7 +402,7 @@ is good, the model may have used the retrieved context poorly.
 If both are bad, the agent likely searched for the wrong thing. It may
 also have stopped too early.
 
-## Running the agent judge
+## 14.5 Running the agent judge
 
 Run the judge for all agent answers:
 

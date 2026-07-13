@@ -1,4 +1,4 @@
-# Evaluation
+# 1 Evaluation
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=eC_IcxfxoiQ&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -18,7 +18,7 @@ also the most tedious. But it's the only way to be sure your system
 works. And it's how you keep it working as you change prompts and swap
 models.
 
-## The evaluation setup
+## 1.1 The evaluation setup
 
 For search evaluation, we need a dataset of questions where we know
 which document is the correct answer. We'll use an LLM to generate

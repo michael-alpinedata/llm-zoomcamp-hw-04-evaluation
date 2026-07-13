@@ -1,8 +1,15 @@
 import time
+import os
+
+from google.genai import types
 
 from tqdm.auto import tqdm
 from rag_helper import RAGBase
 
+from dotenv import load_dotenv
+
+load_dotenv()
+MODEL_NAME = os.environ['MODEL_NAME']
 
 def calc_price(usage):
     input_price_per_million = 0.75
@@ -29,19 +36,23 @@ def calc_total_price(usages):
     return total_cost
 
 
-def llm_structured(client, instructions, user_prompt, output_type, model="gpt-5.4-mini"):
-    messages = [
-        {"role": "developer", "content": instructions},
-        {"role": "user", "content": user_prompt}
-    ]
+class DummyUsage:
+    def __init__(self, i, o):
+        self.input_tokens = i
+        self.output_tokens = o
 
-    response = client.responses.parse(
+def llm_structured(client, instructions, user_prompt, output_type, model=MODEL_NAME):
+    contents = instructions + "\n\n" + user_prompt
+    response = client.models.generate_content(
         model=model,
-        input=messages,
-        text_format=output_type
+        contents=contents,
+        config=types.GenerateContentConfig(
+            response_mime_type="application/json",
+            response_schema=output_type,
+        ),
     )
-
-    return response.output_parsed, response.usage
+    u = DummyUsage(response.usage_metadata.prompt_token_count, response.usage_metadata.candidates_token_count)
+    return response.parsed, u
 
 
 def llm_structured_retry(
@@ -49,7 +60,7 @@ def llm_structured_retry(
     instructions,
     user_prompt,
     output_type,
-    model="gpt-5.4-mini",
+    model=MODEL_NAME,
     max_retries=3,
 ):
     for attempt in range(max_retries):
@@ -90,20 +101,15 @@ class RAGWithUsage(RAGBase):
         )
 
     def llm(self, prompt):
-        input_messages = [
-            {"role": "developer", "content": self.instructions},
-            {"role": "user", "content": prompt}
-        ]
-
-        response = self.llm_client.responses.create(
-            model=self.model,
-            input=input_messages
+        contents = self.instructions + "\n\n" + prompt
+        response = self.llm_client.models.generate_content(
+            model=model,
+            contents=contents
         )
-
-        self.last_usage = response.usage
-        self.usages.append(response.usage)
-
-        return response.output_text
+        u = DummyUsage(response.usage_metadata.prompt_token_count, response.usage_metadata.candidates_token_count)
+        self.last_usage = u
+        self.usages.append(u)
+        return response.text
 
     def total_cost(self):
         return calc_total_price(self.usages)

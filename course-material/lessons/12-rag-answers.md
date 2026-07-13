@@ -1,4 +1,4 @@
-# Generating RAG Answers
+# 12 Generating RAG Answers
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=utkcclfpj0g&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -21,7 +21,7 @@ This is still offline evaluation. We can compare A and A' because our
 questions came from FAQ records. For each question, we know which
 original answer it came from.
 
-## Loading the data
+## 12.1 Loading the data
 
 Create a new notebook for RAG evaluation.
 
@@ -63,7 +63,7 @@ for doc in documents:
 We'll use this lookup table to find the original answer for each
 ground truth question.
 
-## Running RAG
+## 12.2 Running RAG
 
 Import the usual things first:
 
@@ -136,7 +136,7 @@ rag_result = {
 rag_result
 ```
 
-## Processing all questions
+## 12.3 Processing all questions
 
 Create a function that processes one ground truth record:
 

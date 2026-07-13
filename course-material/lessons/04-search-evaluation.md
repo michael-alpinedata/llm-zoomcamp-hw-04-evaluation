@@ -1,4 +1,4 @@
-# Search Evaluation
+# 4 Search Evaluation
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=KoyYkv8P_jU&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -8,7 +8,7 @@ retrieves the correct documents.
 For each question in our ground truth dataset, we run search. Then we
 check whether the results include the correct document.
 
-## Setting up search
+## 4.1 Setting up search
 
 Create a new notebook for search evaluation. We'll use the ground truth
 CSV from the previous lesson and set up the search index here.
@@ -62,7 +62,7 @@ def text_search(query):
     )
 ```
 
-## Collecting relevance data
+## 4.2 Collecting relevance data
 
 Start with one ground truth record:
 
@@ -121,7 +121,7 @@ For the first ground truth record, the relevance list is:
 q = ground_truth[0]
 print(q["question"])
 compute_relevance_text(q)
-# [1, 0, 0, 0, 0]
+# 4 [1, 0, 0, 0, 0]
 ```
 
 The correct document was the first search result.
@@ -134,7 +134,7 @@ For this question:
 q = ground_truth[11]
 print(q["question"])
 compute_relevance_text(q)
-# [1, 0, 0, 0, 0]
+# 4 [1, 0, 0, 0, 0]
 ```
 
 Here, the correct document was also the first search result.
@@ -145,7 +145,7 @@ For this question:
 q = ground_truth[50]
 print(q["question"])
 compute_relevance_text(q)
-# [1, 0, 0, 0, 0]
+# 4 [1, 0, 0, 0, 0]
 ```
 
 The correct document was found at the first position again.

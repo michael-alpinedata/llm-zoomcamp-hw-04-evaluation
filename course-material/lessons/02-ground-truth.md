@@ -1,4 +1,4 @@
-# Generating Ground Truth Data
+# 2 Generating Ground Truth Data
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=YScoH28cVf8&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -21,7 +21,7 @@ questions. For each FAQ document, we ask the LLM to create 5 questions
 that this document would answer. Then we know that for each generated
 question, the source document is the correct answer.
 
-## Loading the documents
+## 2.1 Loading the documents
 
 We'll use helper files from module 01 and this module.
 
@@ -81,7 +81,7 @@ identify a document, you can't tell whether search retrieved the right
 one. When you build your own evaluation set, assign an ID to each record
 in your knowledge base first.
 
-## Generating questions with structured output
+## 2.2 Generating questions with structured output
 
 We use an LLM to generate questions for each document.
 
@@ -128,9 +128,15 @@ Call the LLM for one document:
 ```python
 from dotenv import load_dotenv
 from openai import OpenAI
+import os
 
 load_dotenv()
-openai_client = OpenAI()
+# 2 openai_client = OpenAI()
+# 2 setup for groq instead of OpenAI
+openai_client = OpenAI(
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1"
+)
 ```
 
 Prepare the document as JSON:
@@ -159,7 +165,8 @@ Call the model:
 
 ```python
 response = openai_client.responses.parse(
-    model="gpt-5.4-mini",
+    model="openai/gpt-oss-20b",
+    # model="gpt-5.4-mini",
     input=messages,
     text_format=Questions
 )
@@ -181,7 +188,7 @@ print(result.questions)
 
 You should see 5 questions that relate to the first FAQ document.
 
-## Reusable utilities
+## 2.3 Reusable utilities
 
 We'll need this pattern again in other evaluation sections today, so
 we put it in a reusable helper.
@@ -216,7 +223,7 @@ result, usage = llm_structured(
 print(result.questions)
 ```
 
-## Tracking cost
+## 2.4 Tracking cost
 
 The response also contains token usage:
 

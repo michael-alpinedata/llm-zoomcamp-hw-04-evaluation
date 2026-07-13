@@ -1,11 +1,11 @@
-# Search Evaluation Metrics
+# 5 Search Evaluation Metrics
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=TuirMy3Pdbk&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
 In the previous lesson, we computed relevance lists for search results.
 We can turn those lists into metrics.
 
-## Hit Rate
+## 5.1 Hit Rate
 
 Hit Rate (also called Recall@k) measures the fraction of queries where
 the correct document appears anywhere in the results:
@@ -55,7 +55,7 @@ The Hit Rate is:
 
 ```python
 cnt / len(example)
-# 0.933
+# 5 0.933
 ```
 
 This means that search found the correct document for 93.3% of the
@@ -78,10 +78,10 @@ Check it on the same example:
 
 ```python
 hit_rate(example)
-# 0.933
+# 5 0.933
 ```
 
-## Mean Reciprocal Rank (MRR)
+## 5.2 Mean Reciprocal Rank (MRR)
 
 Hit Rate tells us if we found the right document, but not where it was.
 
@@ -102,7 +102,7 @@ Look at that line:
 
 ```python
 example[1]
-# [0, 1, 0, 0, 0]
+# 5 [0, 1, 0, 0, 0]
 ```
 
 For this line, the score is `1/2` because the correct document is at
@@ -130,7 +130,7 @@ Divide it by the number of queries:
 
 ```python
 total_score / len(example)
-# 0.822
+# 5 0.822
 ```
 
 MRR is the average of these scores across all queries. It rewards
@@ -159,10 +159,10 @@ Check it on the same example:
 
 ```python
 mrr(example)
-# 0.822
+# 5 0.822
 ```
 
-## Putting it together
+## 5.3 Putting it together
 
 Wrap the metrics in a reusable evaluation function:
 
@@ -194,7 +194,7 @@ You should see something like:
 Search metrics tell us whether retrieval works. Next, we'll use these
 metrics to tune the search parameters.
 
-## Interpreting the metrics
+## 5.4 Interpreting the metrics
 
 A few things to keep in mind when reading these numbers:
 

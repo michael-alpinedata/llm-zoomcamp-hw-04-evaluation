@@ -1,4 +1,4 @@
-# Next Steps
+# 15 Next Steps
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=TlKPBjItUw8&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -18,7 +18,7 @@ that your system works. Validate every change against your evaluation
 framework before going to production. This applies to prompt updates,
 model swaps, and agent modifications.
 
-## From synthetic data to real data
+## 15.1 From synthetic data to real data
 
 The evaluation workflow in practice:
 
@@ -43,7 +43,7 @@ edge cases, and collect examples of where it fails. This is especially
 important in the early stages when you don't have automated evaluation
 set up yet.
 
-## Evaluation frameworks
+## 15.2 Evaluation frameworks
 
 For production systems, consider using evaluation frameworks that make
 it easier to manage test datasets, run evaluations, and track results:
@@ -57,7 +57,7 @@ it easier to manage test datasets, run evaluations, and track results:
 These frameworks implement many of the concepts we covered here and
 add visualizations and experiment tracking.
 
-## Monitoring
+## 15.3 Monitoring
 
 Online evaluation (monitoring) is what you do after deploying your
 system.
@@ -71,7 +71,7 @@ Key approaches:
 
 Monitoring is covered in more detail in module 05.
 
-## To learn more
+## 15.4 To learn more
 
 See also:
 

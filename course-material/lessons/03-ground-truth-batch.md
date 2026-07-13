@@ -1,4 +1,4 @@
-# Generating Ground Truth for All Documents
+# 3 Generating Ground Truth for All Documents
 
 Video: [Watch this lesson](https://www.youtube.com/watch?v=eM6xmdZDT6k&list=PL3MmuxUbc_hLZFNgSad56pDBKK8KO0XIv)
 
@@ -86,7 +86,7 @@ for doc in tqdm(documents[:5]):
 This works, but it runs one LLM call after another. Running it for all
 documents this way would take too long.
 
-## Parallel processing
+## 3.1 Parallel processing
 
 Running the calls one after another wastes most of the time waiting on
 the network. Each request just sits there until OpenAI responds, so we
