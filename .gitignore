@@ -8,3 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+
+#secrets
+.env
+
+#marimo files
+__marimo__
