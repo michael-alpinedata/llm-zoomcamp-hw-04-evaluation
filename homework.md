@@ -21,14 +21,30 @@ same 72 pages.
 This homework continues from homework 2. We reuse the same chunks and the same
 search functions, so it's easiest to keep working in the same project.
 
-We need a few more libraries for generating questions with an LLM:
+---
+
+Reminder - homework 2 setup:
+
+```bash
+uv add onnxruntime tokenizers numpy tqdm minsearch gitsource
+uv add --dev huggingface-hub jupyter
+```
+We also need two helper scripts from the `embed/` directory:
+
+- [`download.py`](./embed/download.py)
+(fetches an ONNX model from HuggingFace) and
+- [`embedder.py`](./embed/embedder.py) (the `Embedder` class with an `encode` interface)
+
+---
+
+For module 4, we need a few more libraries for generating questions with an LLM:
 
 ```bash
 uv add openai pydantic python-dotenv pandas
 ```
 
-For the LLM, we recommend OpenAI with `gpt-5.4-mini`, but you can use any model
-and provider you like - just adapt the client accordingly. Put your key in a
+For the LLM, we recommend OpenAI with `gpt-5.4-mini`, but I use `gemini-3.1-flash-lite` from Gemini (you can use any model
+and provider you like - just adapt the client accordingly). Put your key in a
 `.env` file as in the earlier modules.
 
 Load the data exactly as in homework 2:
@@ -109,9 +125,9 @@ Each call returns the token usage, which most LLM APIs report on the response
 object (e.g. `response.usage.input_tokens` / `prompt_tokens`).
 
 What's the average number of input tokens across these 3 calls?
-
+![q1](q1.png)
 * 140
-* 1400
+* X 1400
 * 14000
 * 140000
 
@@ -149,9 +165,12 @@ chunks = chunk_documents(documents, size=2000, step=1000)
 
 This gives 295 chunks.
 
-Now rebuild the search from homework 2 over these chunks. Build a text index
-(`Index`) and a vector index (`VectorSearch`), both keyed on `filename`. Wrap
-each one in a function, `text_search` and `vector_search`, that takes a query
+Now rebuild the search from homework 2 over these chunks. 
+- Build a text index
+(`Index`) and 
+- a vector index (`VectorSearch`), 
+both keyed on `filename`. 
+Wrap each one in a function, `text_search` and `vector_search`, that takes a query
 and the number of results to return (5 by default).
 
 For hybrid search, reuse the `rrf` function from homework 2:
@@ -189,9 +208,9 @@ q = ground_truth[0]["question"]
 ```
 
 After running `text_search` for it, what's the `filename` of the first result?
-
+![q2](q2.png)
 * `01-agentic-rag/lessons/01-intro.md`
-* `01-agentic-rag/lessons/03-rag.md`
+* X `01-agentic-rag/lessons/03-rag.md`
 * `01-agentic-rag/lessons/13-function-calling.md`
 * `01-agentic-rag/lessons/10-rag-next-steps.md`
 
@@ -199,8 +218,8 @@ After running `text_search` for it, what's the `filename` of the first result?
 
 After running `vector_search` for the same question, what's the `filename` of
 the first result?
-
-* `01-agentic-rag/lessons/01-intro.md`
+![q3](q3.png)
+* X `01-agentic-rag/lessons/01-intro.md`
 * `01-agentic-rag/lessons/03-rag.md`
 * `04-evaluation/lessons/11-evaluation-intro.md`
 * `04-evaluation/lessons/12-rag-answers.md`
@@ -228,10 +247,10 @@ As a reminder, these functions do the following:
 Evaluate `text_search` on the ground truth data.
 
 What's the Hit Rate?
-
+![q4](q4.png)
 * 0.55
 * 0.66
-* 0.76
+* X 0.76
 * 0.88
 
 ## Q5. Evaluating vector search
@@ -240,10 +259,10 @@ Now evaluate `vector_search` - the part we left for the homework, since the
 module only evaluated keyword search.
 
 What's the MRR?
-
+![q5](q5.png)
 * 0.35
 * 0.45
-* 0.55
+* X 0.55
 * 0.65
 
 ## Q6. Tuning hybrid search
@@ -257,8 +276,13 @@ Evaluate `hybrid_search` over the full ground truth dataset for `k` values 1,
 50, 100, and 200. Compare the MRR values for these runs.
 
 Which `k` gives the best MRR?
+![q6_k1](q6_k1.png)
+![q6_k50](q6_k50.png)
+![q6_k100](q6_k100.png)
+![q6_k200](q6_k200.png)
 
-* 1
+All results are equals except for k = 1 which gives the bigges MRR so k = 1 wins
+* X 1
 * 50
 * 100
 * 200
@@ -282,49 +306,3 @@ Change a setting, re-run `evaluate`, and see whether the metric moves. The
 ground truth stays fixed, so the comparison is fair. That's how you replace
 guessing with measuring.
 
-## Learning in Public
-
-We encourage everyone to share what they learned. This is called "learning in public".
-
-Read more about the benefits [here](https://alexeyondata.substack.com/p/benefits-of-learning-in-public-and) and in the [course's learning in public guide](https://datatalks.club/docs/courses/zoomcamp-logistics/learning-in-public/).
-
-### Example post for LinkedIn
-
-Tag [@Alexey Grigorev](https://www.linkedin.com/in/agrigorev/) and [@DataTalksClub](https://www.linkedin.com/company/datatalks-club/) in your post - we'll like and comment to give your post more reach.
-
-```
-🚀 Module 4 of LLM Zoomcamp by @DataTalksClub complete!
-
-Just finished Module 4 - Evaluation. Learned how to:
-
-✅ Generate ground truth questions with an LLM and structured output
-✅ Measure retrieval quality with Hit Rate and MRR
-✅ Evaluate keyword, vector, and hybrid search on the same dataset
-✅ Replace gut-feeling with numbers when comparing search methods
-
-Here's my homework solution: <LINK>
-
-Following along with this amazing free course by @Alexey Grigorev - who else is learning to build with LLMs?
-
-You can sign up here: https://github.com/DataTalksClub/llm-zoomcamp/
-```
-
-### Example post for X
-
-```
-📏 Module 4 of LLM Zoomcamp done!
-
-- Ground truth generation with structured output
-- Hit Rate and MRR
-- Evaluating keyword vs vector vs hybrid search
-- Measuring instead of guessing
-
-My solution: <LINK>
-
-Free course by @Al_Grigor & @DataTalksClub: https://github.com/DataTalksClub/llm-zoomcamp/
-```
-
-## Submit the results
-
-* Submit your results here: https://courses.datatalks.club/llm-zoomcamp-2026/homework/hw4
-* It's possible your answers won't match exactly. If so, select the closest one.
